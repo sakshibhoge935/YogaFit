@@ -52,134 +52,141 @@ class Goal(db.Model):
 with app.app_context():
     db.create_all()
 
-# ================= UI & THEMING =================
+# ================= UI & THEMING (KRIYA YOGA THEME) =================
 BASE_STYLE = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yogora Health</title>
+<title>Yogora | Ethereal Beauty</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
     :root {
-        --bg-deep: #1a1d1a;
-        --accent-green: #2d4a3e;
-        --text-gold: #e2e8f0;
-        --glass: rgba(255, 255, 255, 0.03);
-        --glass-border: rgba(255, 255, 255, 0.1);
+        --bg-cream: #FEFCF5; /* Warm earthy cream background */
+        --header-olive: #8F9B69; /* Kriya Olive Green */
+        --header-olive-dark: #778353;
+        --card-bg: #FFFFFF;
+        --text-dark: #3A3A3A;
+        --text-muted: #7A7A7A;
+        --border-soft: #E6E2D6;
     }
 
     body { 
-        background: linear-gradient(135deg, #1a1d1a 0%, #0a0c0a 100%); 
-        color: #f8fafc; 
-        font-family: 'Inter', sans-serif; 
+        background-color: var(--bg-cream); 
+        color: var(--text-dark); 
+        font-family: 'Lato', sans-serif; 
         min-height: 100vh;
     }
 
-    h1, h2, .navbar-brand { 
+    h1, h2, h3, h4, h5, .serif-font { 
         font-family: 'Playfair Display', serif; 
+        color: var(--text-dark);
     }
 
     .navbar { 
-        background: transparent; 
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--glass-border);
+        background-color: var(--header-olive); 
         padding: 1.2rem 2rem; 
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    .navbar-brand { font-weight: 700; color: #ffffff !important; font-size: 1.8rem; }
+    .navbar-brand { 
+        font-weight: 700; 
+        color: #FFFFFF !important; 
+        font-size: 1.8rem; 
+        letter-spacing: 1px;
+        font-family: 'Playfair Display', serif;
+    }
     
+    .nav-link { color: rgba(255,255,255,0.85) !important; transition: 0.3s; font-weight: 400; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;}
+    .nav-link:hover { color: #FFFFFF !important; }
+
+    .btn-outline-light { border-color: rgba(255,255,255,0.5); }
+    .btn-outline-light:hover { background-color: #FFFFFF; color: var(--header-olive); }
+
     .card { 
-        background: var(--glass); 
-        backdrop-filter: blur(12px);
-        border: 1px solid var(--glass-border); 
-        border-radius: 24px; 
-        padding: 35px; 
+        background: var(--card-bg); 
+        border: 1px solid var(--border-soft); 
+        border-radius: 12px; 
+        padding: 30px; 
         margin-top: 20px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        box-shadow: 0 8px 24px rgba(143, 155, 105, 0.08);
+        transition: all 0.3s ease; 
     }
 
     .card-hover:hover { 
-        transform: translateY(-10px); 
-        border-color: rgba(255,255,255,0.3);
-        background: rgba(255, 255, 255, 0.05);
+        transform: translateY(-5px); 
+        box-shadow: 0 12px 30px rgba(143, 155, 105, 0.15);
+        border-color: var(--header-olive);
         cursor: pointer;
     }
 
     .form-control { 
-        background: rgba(0,0,0,0.2); 
-        border: 1px solid var(--glass-border); 
-        color: white; 
-        border-radius: 10px; 
-        padding: 14px; 
+        background: #FAFAFA; 
+        border: 1px solid var(--border-soft); 
+        color: var(--text-dark); 
+        border-radius: 8px; 
+        padding: 12px; 
         margin-bottom: 15px;
     }
 
     .form-control:focus { 
-        background: rgba(0,0,0,0.3); 
-        color: white; 
-        border-color: #ffffff; 
-        box-shadow: none;
+        background: #FFFFFF; 
+        border-color: var(--header-olive); 
+        box-shadow: 0 0 0 3px rgba(143, 155, 105, 0.2);
     }
 
-    .form-control::placeholder { color: #64748b; }
-
     .btn-success { 
-        background: #ffffff; 
-        color: #000;
+        background-color: var(--header-olive); 
+        color: #ffffff;
         border: none; 
-        border-radius: 50px; 
-        padding: 12px 30px; 
+        border-radius: 30px; 
+        padding: 10px 25px; 
         font-weight: 600; 
         width: 100%;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
+        font-size: 0.85rem;
         transition: 0.3s; 
     }
 
     .btn-success:hover { 
-        background: #e2e8f0; 
-        transform: scale(1.02);
-        color: #000;
+        background-color: var(--header-olive-dark); 
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(143, 155, 105, 0.3);
     }
 
-    a.text-link { color: #ffffff; text-decoration: none; font-weight: 500; border-bottom: 1px solid #ffffff; }
-    a.text-link:hover { color: #cbd5e1; border-color: #cbd5e1; }
-    
-    .nav-link { color: #cbd5e1 !important; transition: 0.3s; font-weight: 500; }
-    .nav-link:hover { color: #ffffff !important; }
+    a.text-link { color: var(--header-olive); text-decoration: none; font-weight: 700; }
+    a.text-link:hover { text-decoration: underline; }
 
     .stat-highlight { 
-        color: #ffffff; 
+        color: var(--header-olive); 
         font-family: 'Playfair Display', serif;
         font-size: 3.5rem; 
         line-height: 1;
     }
 
     .emoji-icon { 
-        font-size: 2.5rem; 
-        opacity: 0.9;
-        margin-bottom: 15px;
+        font-size: 2.2rem; 
+        margin-bottom: 12px;
     }
 
     .list-styled li { 
-        background: rgba(255,255,255,0.02); 
+        background: var(--bg-cream); 
         margin-bottom: 12px; 
-        padding: 20px; 
-        border-radius: 15px; 
-        border: 1px solid var(--glass-border); 
+        padding: 15px 20px; 
+        border-radius: 10px; 
+        border: 1px solid var(--border-soft);
         list-style: none; 
         display: flex; 
         align-items: center; 
-        gap: 20px; 
+        gap: 15px; 
     }
     
     /* Smooth Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: var(--bg-deep); }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    ::-webkit-scrollbar-track { background: var(--bg-cream); }
+    ::-webkit-scrollbar-thumb { background: var(--header-olive); border-radius: 10px; }
 </style>
 </head>
 <body>
@@ -188,11 +195,13 @@ BASE_STYLE = """<!DOCTYPE html>
 def render_page(content, show_nav=True):
     nav = """
     <nav class="navbar navbar-expand-lg mb-4">
-        <a class="navbar-brand" href="/dashboard">🌿 Yogora</a>
+        <a class="navbar-brand" href="/dashboard">
+            <span style="font-size: 1.2rem; margin-right: 8px;">🪷</span>YOGORA
+        </a>
         <div class="ms-auto d-flex align-items-center">
-            <a href="/dashboard" class="nav-link me-3 d-none d-md-block">Dashboard</a>
-            <a href="/profile" class="nav-link me-3 d-none d-md-block">Profile</a>
-            <a href="/logout" class="btn btn-outline-light btn-sm rounded-pill px-4 py-2" style="font-weight:500;">Logout</a>
+            <a href="/dashboard" class="nav-link me-3 d-none d-md-block">Home</a>
+            <a href="/profile" class="nav-link me-4 d-none d-md-block">Profile</a>
+            <a href="/logout" class="btn btn-outline-light btn-sm rounded-pill px-4 py-2" style="font-weight:600; letter-spacing: 1px; font-size: 0.8rem; text-transform: uppercase;">Logout</a>
         </div>
     </nav>
     """ if show_nav else ""
@@ -213,16 +222,16 @@ def login():
     return render_page(f"""
     <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="col-md-5 col-lg-4">
-            <div class='card text-center'>
-                <div class="emoji-icon mb-2">🌿</div>
+            <div class='card text-center' style="border-top: 5px solid var(--header-olive);">
+                <div class="emoji-icon mb-2">🪷</div>
                 <h2 class="mb-4">Welcome Back</h2>
                 <form method='POST'>
                     <input name='u' class='form-control' placeholder='Username' required>
                     <input name='p' type='password' class='form-control' placeholder='Password' required>
-                    <button class='btn btn-success mt-2'>Login</button>
+                    <button class='btn btn-success mt-3'>Login</button>
                 </form>
                 {error}
-                <p class="mt-4 mb-0 text-secondary">New here? <a href='/register' class="text-link">Create an account</a></p>
+                <p class="mt-4 mb-0 text-muted" style="font-size: 0.9rem;">New here? <a href='/register' class="text-link">Create an account</a></p>
             </div>
         </div>
     </div>
@@ -237,14 +246,14 @@ def register():
     return render_page("""
     <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="col-md-5 col-lg-4">
-            <div class='card text-center'>
-                <h2 class="mb-4">Create Account</h2>
+            <div class='card text-center' style="border-top: 5px solid var(--header-olive);">
+                <h2 class="mb-4">Begin Your Journey</h2>
                 <form method='POST'>
                     <input name='u' class='form-control' placeholder='Choose Username' required>
                     <input name='p' type='password' class='form-control' placeholder='Create Password' required>
-                    <button class='btn btn-success mt-2'>Register</button>
+                    <button class='btn btn-success mt-3'>Register</button>
                 </form>
-                <p class="mt-4 mb-0 text-secondary">Already have an account? <a href='/' class="text-link">Login</a></p>
+                <p class="mt-4 mb-0 text-muted" style="font-size: 0.9rem;">Already have an account? <a href='/' class="text-link">Login</a></p>
             </div>
         </div>
     </div>
@@ -255,6 +264,17 @@ def register():
 def dashboard():
     if 'user' not in session: return redirect('/')
     
+    # Beautiful Image Hero Banner inspired by the screenshot
+    hero_banner = """
+    <div class="hero-section mb-5 rounded-4 overflow-hidden position-relative" style="background-image: url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; padding: 100px 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(to bottom, rgba(254, 252, 245, 0.4), rgba(254, 252, 245, 0.8));"></div>
+        <div class="position-relative" style="z-index: 1;">
+            <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; color: #5a6341; margin-bottom: 5px;">your mind & soul is beautiful</p>
+            <h1 style="font-family: 'Playfair Display', serif; color: #3A3A3A; font-weight: 700; font-size: 2.8rem; text-shadow: 0px 2px 4px rgba(255,255,255,0.8);">Witness the Ethereal Beauty with Yogora</h1>
+        </div>
+    </div>
+    """
+
     # Dashboard Grid Items
     modules = [
         ("Profile", "/profile", "👤"), ("Diet Plan", "/diet", "🥗"), ("Workout", "/yoga", "🧘"),
@@ -269,17 +289,13 @@ def dashboard():
             <a href="{link}" style="text-decoration:none; color:inherit;">
                 <div class="card card-hover text-center h-100 p-4">
                     <div class="emoji-icon">{emoji}</div>
-                    <h5 class="mb-0">{title}</h5>
+                    <h5 class="mb-0 text-dark font-weight-bold" style="font-size: 1.05rem;">{title}</h5>
                 </div>
             </a>
         </div>
     """ for title, link, emoji in modules])
 
-    return render_page(f"""
-    <div class="text-center mb-5 mt-3">
-        <h1 style="font-size: 3rem;">Your Hub</h1>
-        <p class="text-secondary fs-5">Track, improve, and conquer your day.</p>
-    </div>
+    return render_page(hero_banner + f"""
     <div class="row g-4">
         {grid_html}
     </div>
@@ -317,13 +333,13 @@ def profile():
                     <h2>Your Profile</h2>
                 </div>
                 <form method='POST'>
-                    <label class="text-secondary mb-1 ms-1">Age</label>
+                    <label class="text-muted mb-1 ms-1 text-uppercase fw-bold" style="font-size: 0.75rem;">Age</label>
                     <input name='age' value="{p_age}" class='form-control' required>
-                    <label class="text-secondary mb-1 ms-1">Gender</label>
+                    <label class="text-muted mb-1 ms-1 text-uppercase fw-bold" style="font-size: 0.75rem;">Gender</label>
                     <input name='gender' value="{p_gen}" class='form-control' required>
-                    <label class="text-secondary mb-1 ms-1">Height (cm)</label>
+                    <label class="text-muted mb-1 ms-1 text-uppercase fw-bold" style="font-size: 0.75rem;">Height (cm)</label>
                     <input name='height' value="{p_hgt}" class='form-control' required>
-                    <label class="text-secondary mb-1 ms-1">Weight (kg)</label>
+                    <label class="text-muted mb-1 ms-1 text-uppercase fw-bold" style="font-size: 0.75rem;">Weight (kg)</label>
                     <input name='weight' value="{p_wgt}" class='form-control' required>
                     <button class='btn btn-success mt-3'>Save Profile</button>
                 </form>
@@ -348,13 +364,13 @@ def diet():
         else: plan = "Low Calorie Diet 🥦"
 
         result = f"""
-        <div class="row text-center mt-5 g-3">
-            <div class="col-4"><div class="p-3 bg-dark rounded-4 border border-secondary" style="background: rgba(0,0,0,0.3) !important; border-color: rgba(255,255,255,0.1) !important;"><h5 class="text-secondary">BMI</h5><h3 class="text-white">{bmi}</h3></div></div>
-            <div class="col-4"><div class="p-3 bg-dark rounded-4 border border-secondary" style="background: rgba(0,0,0,0.3) !important; border-color: rgba(255,255,255,0.1) !important;"><h5 class="text-secondary">BMR</h5><h3 class="text-white">{int(bmr)}</h3></div></div>
-            <div class="col-4"><div class="p-3 bg-dark rounded-4 border border-secondary" style="background: rgba(0,0,0,0.3) !important; border-color: rgba(255,255,255,0.1) !important;"><h5 class="text-secondary">TDEE</h5><h3 class="text-white">{tdee}</h3></div></div>
+        <div class="row text-center mt-4 g-3">
+            <div class="col-4"><div class="p-3 rounded-3" style="background: var(--bg-cream); border: 1px solid var(--border-soft);"><h6 class="text-muted mb-1" style="font-size:0.8rem;text-transform:uppercase;">BMI</h6><h4 class="mb-0 text-dark serif-font">{bmi}</h4></div></div>
+            <div class="col-4"><div class="p-3 rounded-3" style="background: var(--bg-cream); border: 1px solid var(--border-soft);"><h6 class="text-muted mb-1" style="font-size:0.8rem;text-transform:uppercase;">BMR</h6><h4 class="mb-0 text-dark serif-font">{int(bmr)}</h4></div></div>
+            <div class="col-4"><div class="p-3 rounded-3" style="background: var(--bg-cream); border: 1px solid var(--border-soft);"><h6 class="text-muted mb-1" style="font-size:0.8rem;text-transform:uppercase;">TDEE</h6><h4 class="mb-0 text-dark serif-font">{tdee}</h4></div></div>
         </div>
-        <div class="alert mt-4 text-center border-light" style="background: rgba(255,255,255,0.05); color:#fff;">
-            <h4 class="mb-0">Recommended: {plan}</h4>
+        <div class="alert mt-4 text-center" style="background: rgba(143, 155, 105, 0.1); color: var(--header-olive-dark); border: none; border-radius: 8px;">
+            <h5 class="mb-0 serif-font fw-bold">Recommended: {plan}</h5>
         </div>
         """
 
@@ -369,7 +385,7 @@ def diet():
                         <div class="col-6"><input name='h' placeholder="Height (cm)" class='form-control' required></div>
                         <div class="col-6"><input name='age' placeholder="Age" class='form-control' required></div>
                     </div>
-                    <button class='btn btn-success mt-2'>Calculate Needs</button>
+                    <button class='btn btn-success mt-3'>Calculate Needs</button>
                 </form>
                 {result}
             </div>
@@ -381,16 +397,23 @@ def diet():
 @app.route('/yoga')
 def yoga():
     if 'user' not in session: return redirect('/')
-    return render_page("""
+    
+    image_banner = """
+    <div class="mb-4 rounded-3 overflow-hidden shadow-sm" style="height: 150px; background-image: url('https://images.unsplash.com/photo-1599901860904-17e082b4df01?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center;">
+    </div>
+    """
+    
+    return render_page(f"""
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class='card'>
-                <div class="text-center mb-4"><div class="emoji-icon">🧘</div><h2>Daily Routine</h2></div>
+                {image_banner}
+                <div class="text-center mb-4"><h2>Daily Routine</h2></div>
                 <ul class="list-styled p-0">
-                    <li><span class="fs-4">🌞</span> <h5>Surya Namaskar (Sun Salutation)</h5></li>
-                    <li><span class="fs-4">💪</span> <h5>Pushups - 3 sets of 15</h5></li>
-                    <li><span class="fs-4">🦵</span> <h5>Squats - 3 sets of 20</h5></li>
-                    <li><span class="fs-4">🪵</span> <h5>Plank - 60 seconds</h5></li>
+                    <li><span class="fs-4">🌞</span> <h6 class="mb-0 text-dark serif-font fs-5">Surya Namaskar (Sun Salutation)</h6></li>
+                    <li><span class="fs-4">💪</span> <h6 class="mb-0 text-dark serif-font fs-5">Pushups - 3 sets of 15</h6></li>
+                    <li><span class="fs-4">🦵</span> <h6 class="mb-0 text-dark serif-font fs-5">Squats - 3 sets of 20</h6></li>
+                    <li><span class="fs-4">🪵</span> <h6 class="mb-0 text-dark serif-font fs-5">Plank - 60 seconds</h6></li>
                 </ul>
             </div>
         </div>
@@ -414,12 +437,12 @@ def render_tracker(title, emoji, unit, db_model, field_name, input_name, user_id
                 <div class="emoji-icon">{emoji}</div>
                 <h2>{title}</h2>
                 <div class="my-4">
-                    <p class="text-secondary mb-1">Current Log</p>
-                    <span class="stat-highlight">{last}</span> <span class="fs-5 text-secondary">{unit}</span>
+                    <p class="text-muted mb-1 text-uppercase fw-bold" style="font-size: 0.8rem;">Current Log</p>
+                    <span class="stat-highlight">{last}</span> <span class="fs-5 text-muted serif-font">{unit}</span>
                 </div>
                 <form method='POST' class="mt-2">
                     <input name='{input_name}' class='form-control text-center' placeholder='Enter new value' required>
-                    <button class='btn btn-success'>Log Entry</button>
+                    <button class='btn btn-success mt-2'>Log Entry</button>
                 </form>
             </div>
         </div>
@@ -448,13 +471,10 @@ def goals():
 
 
 # Configure the Gemini API
-# Replace 'YOUR_GEMINI_API_KEY_HERE' with your actual key from Google AI Studio
 genai.configure(api_key="AIzaSyC6_xpvbALpSNv6bI6nMrg_ZVCQCvFf2RA")
 
-# Set up the model with instructions to act like a fitness coach
+# Set up the model
 generation_config = {"temperature": 0.7, "max_output_tokens": 500}
-
-# Changed model_name to "gemini-pro" to fix the 404 error
 model = genai.GenerativeModel(
     model_name="gemini-pro",
     generation_config=generation_config,
@@ -465,8 +485,6 @@ model = genai.GenerativeModel(
 def chat():
     if 'user' not in session: return redirect('/')
 
-    # Initialize a chat history list in the user's session if it doesn't exist
-    # We keep the last 10 messages to avoid exceeding Flask's cookie size limit
     if 'chat_history' not in session:
         session['chat_history'] = [
             {"role": "bot", "text": "Namaste! I am your Yogora AI coach. Ask me anything about fitness, diet, or sleep!"}
@@ -474,18 +492,14 @@ def chat():
 
     if request.method == 'POST':
         user_msg = request.form['m']
-        
-        # 1. Add user message to history
         session['chat_history'].append({"role": "user", "text": user_msg})
         
         try:
-            # 2. Convert session history into the format Gemini expects (excluding the very first greeting)
             history_for_gemini = []
-            for msg in session['chat_history'][1:-1]: # Skip greeting and the message just added
+            for msg in session['chat_history'][1:-1]:
                 role = "user" if msg['role'] == "user" else "model"
                 history_for_gemini.append({"role": role, "parts": [msg['text']]})
                 
-            # 3. Start chat session and send message
             chat_session = model.start_chat(history=history_for_gemini)
             response = chat_session.send_message(user_msg)
             bot_reply = response.text
@@ -494,16 +508,13 @@ def chat():
             print(f"Gemini API Error: {e}")
             bot_reply = "I'm having trouble connecting to my AI brain right now. Please check the API key!"
 
-        # 4. Add bot response to history
         session['chat_history'].append({"role": "bot", "text": bot_reply})
         
-        # Keep only the last 10 messages to save session space
         if len(session['chat_history']) > 11:
             session['chat_history'] = [session['chat_history'][0]] + session['chat_history'][-10:]
             
-        session.modified = True # Tell Flask to save the session
+        session.modified = True 
 
-    # Generate the HTML for the chat bubbles
     chat_bubbles_html = ""
     for msg in session['chat_history']:
         if msg['role'] == 'user':
@@ -513,9 +524,9 @@ def chat():
 
     return render_page(f"""
     <style>
-        .chat-container {{ height: 450px; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 12px; margin-bottom: 15px; display: flex; flex-direction: column; border: 1px solid var(--glass-border); }}
-        .msg-user {{ background: #ffffff; color: #000; padding: 12px 18px; border-radius: 18px 18px 0 18px; max-width: 85%; align-self: flex-end; margin-bottom: 12px; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(0,0,0,0.2);}}
-        .msg-bot {{ background: rgba(255,255,255,0.1); color: #f8fafc; padding: 12px 18px; border-radius: 18px 18px 18px 0; max-width: 85%; align-self: flex-start; margin-bottom: 12px; font-size: 0.95rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid var(--glass-border);}}
+        .chat-container {{ height: 450px; overflow-y: auto; padding: 20px; background: #FAFAFA; border-radius: 12px; border: 1px solid var(--border-soft); margin-bottom: 20px; display: flex; flex-direction: column; }}
+        .msg-user {{ background: var(--header-olive); color: #ffffff; padding: 12px 18px; border-radius: 18px 18px 0 18px; max-width: 85%; align-self: flex-end; margin-bottom: 15px; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(143, 155, 105, 0.2);}}
+        .msg-bot {{ background: #ffffff; color: var(--text-dark); padding: 12px 18px; border-radius: 18px 18px 18px 0; max-width: 85%; align-self: flex-start; margin-bottom: 15px; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); border: 1px solid var(--border-soft);}}
     </style>
     
     <div class="row justify-content-center">
@@ -532,7 +543,7 @@ def chat():
                 
                 <form method='POST' class="d-flex gap-2 mb-0">
                     <input name='m' class='form-control mb-0' placeholder='Ask about diets, workouts, or sleep...' required autocomplete="off">
-                    <button class='btn btn-success w-auto px-4 mt-0'>Send</button>
+                    <button class='btn btn-success w-auto px-4 mt-0' style="border-radius: 8px;">Send</button>
                 </form>
             </div>
         </div>
@@ -551,7 +562,7 @@ def calories():
     res = ""
     if request.method == 'POST':
         t = int(request.form['t'])
-        res = f"<h1 class='stat-highlight mt-4'>{t*5} <span class='fs-4 text-secondary' style='font-family: Inter, sans-serif;'>kcal</span></h1>"
+        res = f"<h1 class='stat-highlight mt-4'>{t*5} <span class='fs-4 text-muted' style='font-family: Lato, sans-serif;'>kcal</span></h1>"
 
     return render_page(f"""
     <div class="row justify-content-center">
@@ -559,10 +570,10 @@ def calories():
             <div class='card text-center'>
                 <div class="emoji-icon">🔥</div>
                 <h2>Burn Calculator</h2>
-                <p class="text-secondary">Enter workout duration in minutes</p>
+                <p class="text-muted">Enter workout duration in minutes</p>
                 <form method='POST'>
                     <input name='t' type="number" class='form-control text-center' placeholder='Minutes' required>
-                    <button class='btn btn-success'>Calculate</button>
+                    <button class='btn btn-success mt-2'>Calculate</button>
                 </form>
                 {res}
             </div>
@@ -572,7 +583,7 @@ def calories():
 
 # ================= STATIC INFO ROUTES =================
 def render_static_card(title, emoji, items):
-    list_html = "".join([f"<li>{item}</li>" for item in items])
+    list_html = "".join([f"<li><h6 class='mb-0 text-dark serif-font fs-5'>{item}</h6></li>" for item in items])
     return render_page(f"""
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -604,7 +615,7 @@ def nearby():
             <div class='card'>
                 <div class="emoji-icon">📍</div>
                 <h2>Nearby Fitness</h2>
-                <p class="text-secondary mt-3">Integration with Google Maps for local gyms and parks coming soon.</p>
+                <p class="text-muted mt-3">Integration with Google Maps for local gyms and parks coming soon.</p>
             </div>
         </div>
     </div>
